@@ -1,3 +1,4 @@
 data
 output
-*/.ipynb_checkpoint
+*/.ipynb_checkpoints/*
+
