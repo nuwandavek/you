@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Make sure your page supports utf-8 characterset. -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Load TensorFlow.js. This is required to use the qna model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+    <!-- Load the qna model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"> </script>
+    <link rel="stylesheet" href="popup.css"/>
+  </head>
+
+<body>
+  <div id="popup-content">
+  <p class="jumbo">You</p>
+  <p>Only you can complete your sentences :)</p>
+  </div>
+  <script>
+    const model = await qna.load();
+    console.log(model);
+  </script>
+  <!-- <script src="popup.js"></script> -->
+</body>
+
+</html>

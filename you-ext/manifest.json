@@ -1,0 +1,24 @@
+{
+
+    "manifest_version": 2,
+    "name": "You",
+    "version": "1.0",
+  
+    "description": "Only You can complete your sentences :)",
+  
+    "icons": {
+      "48": "icons48.png",
+      "96": "icons96.png"
+    },
+    "permissions": [
+        "activeTab",
+        "webRequest",
+        "<all_urls>"
+    ],
+    "browser_action": {
+        "default_icon": "icons48.png",
+        "default_title": "You",
+        "default_popup": "popup/popup.html"
+    }
+  
+  }
