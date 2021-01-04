@@ -2,3 +2,4 @@ data
 output
 */.ipynb_checkpoints/*
 *.DS_STORE
+notebooks/.nbgrader.log
