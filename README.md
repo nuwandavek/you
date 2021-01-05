@@ -12,9 +12,9 @@ Training You on your own data is somewhat clunky right now. Follow these steps. 
 
 ```bash
 $ git clone https://github.com/nuwandavek/you.git
-cd you
-pip install -r requirements.txt
-mkdir model
+$ cd you
+$ pip install -r requirements.txt
+$ mkdir model
 ```
 
 
