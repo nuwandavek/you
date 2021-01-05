@@ -2,7 +2,10 @@
 
 An auto-completion tool that is you.
 
-You let's you train a generative model that can mimic your personal style, and use it as an autocompletion tool. Currently, You trains on WhatsApp chat history, and offers autocomplete suggestions on WhatsApp Web via a Chrome extension. This can be extended to train and autocomplete on more personal communication apps (Messenger, email, slack, Twitter).
+You let's you train a generative model that can mimic your personal style, and use it as an autocompletion tool. Currently, You trains on WhatsApp chat history, and offers autocomplete suggestions on WhatsApp Web via a Chrome extension. This can be extended to train and autocomplete on more personal communication apps (Messenger, email, slack, Twitter). Everything runs locally and is completely private. 
+
+Contributors : [nuwandavek](https://twitter.com/nuwandavek), [rishicomplex](https://twitter.com/rishicomplex)
+
 
 ## Demo
 
@@ -45,6 +48,8 @@ As the first command line argument, pass the path to the directory containing th
 python server.py ../Downloads/output
 ```
 
+---
+
 ### ToDos
 - Model
     - [x] Finetune DistilGPT2 on Whatsapp chat history
@@ -61,7 +66,13 @@ python server.py ../Downloads/output
         - [ ] Hangouts
         - [ ] Gmail
         - [ ] Slack
+        - [ ] Twitter
 - Access
     - [ ] Blog Post!
     - [ ] Make training easier (can it be any easier, though?)
     - [ ] Explore using `tf.js` in the extension to avoid the server (will allow many many more people to use it)
+    
+---
+
+### Contributing
+Checkout the ToDos. Extending the UI to other platforms may be the easiest place to begin.
