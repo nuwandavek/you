@@ -143,40 +143,44 @@ function getPrompts(context){
 }
 
 
-window.onload = (event) => {
+$(document).ready(function(){
 
-
-  console.log("Hello");
+  console.log("Hello, you!");
+  $('body').append('<div style="position:absolute;right:0;top:0;z-index:10"><img src="icons48.png"></div>')
   
   
   var tabListernerActive = false;
-  setTimeout(function(){
-  document.body.style.border = '5px solid red';
-    if (tabListernerActive==false){
-      document.querySelector('#pane-side').addEventListener('click',function(){
-        console.log('CLICKED');
-        document.querySelectorAll('[data-tab="6"]')[0].addEventListener('keydown',function(e){
+  var interval = setInterval(function(){
+  // document.body.style.border = '5px solid red'; 
+    if(tabListernerActive===false){
+      if ($('[data-tab="6"]').length>0){
+        console.log($('[data-tab="6"]'), 'yoyo')
+        console.log('Adding Event Listeners for tabs')
+        $('[data-tab="6"]').on('keydown',function(e){
+            if(e.keyCode===9){
+              e.stopPropagation();
+              e.preventDefault();
+              $('[data-tab="6"]').blur();
+              var context = generateContext();
+              getPrompts(context);
+            }
+        })
+        
+        $('[data-tab="6"]').on('keypress',function(e){
           if(e.keyCode===9){
             e.stopPropagation();
             e.preventDefault();
-            $('[data-tab="6"]').blur();
-            var context = generateContext();
-            getPrompts(context);
           }
         })
-      
-        document.querySelectorAll('[data-tab="6"]')[0].addEventListener('keypress',function(e){
-          if(e.keyCode===9){
-            e.stopPropagation();
-            e.preventDefault();
-          }
-        })
+
         tabListernerActive = true;
-      })
+        console.log('cleared');
+        clearInterval(interval);
+          
+      }
     }
-    
-  }, 2000);
-};
+  }, 1000);
+});
 
 
 
