@@ -41,7 +41,7 @@ function displayPrompts(prompts, context){
   console.log(context);
   $('#predicted-prompts').remove();
   $('div[data-tab="7"]').append( "<div id='predicted-prompts' style='padding: 20px;margin: 20px; border-radius: 15px; background:#085373'></div>" );
-  $('#predicted-prompts').append( "<p style='font-size: 10px; padding: 15px; font-weight: 900; text-transform: uppercase'>Predicted Responses</p>" );
+  $('#predicted-prompts').append( '<div style="flex-direction: row;display: flex;"><img src="https://raw.githubusercontent.com/nuwandavek/you/master/extension/icons48.png"><p style="font-size: 12px; padding: 15px; font-weight: 900; text-transform: uppercase">You : Predicted Responses</p></div>');
   prompts.forEach((p)=>{
     p = p.generated_text.replace(context, '').trim();
     // console.log(p);
@@ -146,7 +146,9 @@ function getPrompts(context){
 $(document).ready(function(){
 
   console.log("Hello, you!");
-  $('body').append('<div style="position:absolute;right:0;top:0;z-index:10"><img src="icons48.png"></div>')
+
+  var icon = '<div style="position:absolute;right:10px;top:10px;z-index:10;padding: 2px;border: 2px solid #27ae60;border-radius: 10px;text-align: center;"><img src="https://raw.githubusercontent.com/nuwandavek/you/master/extension/icons48.png"><p>YOU</p><p style="font-size: 10px;">active</p></div>'
+  $('body').append(icon)
   
   
   var tabListernerActive = false;
