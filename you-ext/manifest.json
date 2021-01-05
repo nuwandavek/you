@@ -23,7 +23,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["<all_urls>"],
+        "matches": ["https://web.whatsapp.com/"],
         "js": ["content_scripts/jquery.min.js","content_scripts/you.js"]
       }
     ]
