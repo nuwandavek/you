@@ -45,3 +45,23 @@ As the first command line argument, pass the path to the directory containing th
 python server.py ../Downloads/output
 ```
 
+### ToDos
+- Model
+    - [x] Finetune DistilGPT2 on Whatsapp chat history
+    - [x] Preprocess and clean data
+    - [ ] Compute uncertainty and filter responses
+    - [ ] Compute recommended training data size
+    - [ ] Experiment with conversation pre-training on a large corpus
+    - [ ] Checkout other architectures
+    - [ ] Experiment with `platform` flag in the same model to handle multiple chat platforms
+- UI
+    - [x] Chrome/Firefox extension for Whatsapp web (feature complete)
+    - Extend to 
+        - [ ] Facebook/messeger
+        - [ ] Hangouts
+        - [ ] Gmail
+        - [ ] Slack
+- Access
+    - [ ] Blog Post!
+    - [ ] Make training easier (can it be any easier, though?)
+    - [ ] Explore using `tf.js` in the extension to avoid the server (will allow many many more people to use it)
