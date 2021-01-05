@@ -1,10 +1,15 @@
+import sys
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from transformers import pipeline
-gen_pipeline = pipeline('text-generation', model='./output/v1', framework='pt')
 
 app = Flask(__name__)
 CORS(app)
+
+def set_up_gen_pipeline(model_path):
+    global gen_pipeline
+    gen_pipeline = pipeline('text-generation', model=model_path, framework='pt')  
 
 @app.route("/")
 def hello():
@@ -28,4 +33,8 @@ def prompt():
     return res
 
 if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("Missing required argument: model path.")
+        exit(0)
+    set_up_gen_pipeline(sys.argv[1])
     app.run(host="localhost", port=5000, debug=True)
