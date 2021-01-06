@@ -162,6 +162,7 @@ $(document).ready(function(){
             if(e.keyCode===9){
               e.stopPropagation();
               e.preventDefault();
+              console.log('Tab!')
               $('[data-tab="6"]').blur();
               var context = generateContext();
               getPrompts(context);

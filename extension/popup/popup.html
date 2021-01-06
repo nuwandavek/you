@@ -5,22 +5,16 @@
     <meta charset="utf-8">
     <!-- Make sure your page supports utf-8 characterset. -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Load TensorFlow.js. This is required to use the qna model. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
-    <!-- Load the qna model. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"> </script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="popup.css"/>
   </head>
 
 <body>
   <div id="popup-content">
-  <p class="jumbo">You</p>
+  <p class="jumbo">You <img src="../icons48.png" width="30"/></p>
   <p>Only you can complete your sentences :)</p>
+  <p style="color:#f39c12">Usage : Enter tab while typing to see the prompts!</p>
   </div>
-  <script>
-    const model = await qna.load();
-    console.log(model);
-  </script>
   <!-- <script src="popup.js"></script> -->
 </body>
 

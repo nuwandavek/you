@@ -1,7 +1,12 @@
 html, body {
     width: 300px;
+    background : #262d31;
+    font-family: 'Roboto';
+    color: #eee;
+    text-align: center;
+
   }
 .jumbo{
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 900;
 }

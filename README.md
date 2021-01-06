@@ -8,7 +8,7 @@ Contributors : [nuwandavek](https://twitter.com/nuwandavek), [rishicomplex](http
 
 
 ## Demo
-
+![Demo](demo.gif)
 ## Train You on your data
 
 Training You on your own data is somewhat clunky right now. Follow these steps. First, clone the You repository.
@@ -29,9 +29,10 @@ First, we'll fine-tune the [DistilGPT2](https://huggingface.co/distilgpt2) model
 
 **Firefox**
 
-- Enter `about:addons` in the address bar
-- Click on the `Gear icon`, and select `Install Add-on from file...` option from the menu. 
+- Enter `about:debugging#/runtime/this-firefox` in the address bar
+- Click on `Load Temporary Add-on...` 
 - Select the manifest.json file in the `extension` folder
+- Click on `Reload` for good measure
 
 **Chrome**
 
@@ -47,6 +48,13 @@ As the first command line argument, pass the path to the directory containing th
 ```
 python server.py ../Downloads/output
 ```
+
+### Usage
+- Once you haver the browser extension and the server working, go to `https://web.whatsapp.com/`. 
+- Make sure the extension is working (you should see a logo at the top-right of the screen indicating that the extension is active).
+- Now Click on any user you want to chat with, as usual. 
+- Whenever you want `You` to fill in, press the `tab` key (you can `tab` to get the whole message prompt, or to finish a sentrence you've already started typing.)
+- Select one of the 3 prompts (keyboard and mouse supported), or press the `Esc` key to ignore the prompts.
 
 ---
 
