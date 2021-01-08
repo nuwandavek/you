@@ -22,7 +22,7 @@ $ pip install -r requirements.txt
 
 ### Fine tune the model on your WhatsApp chat history
 
-First, we'll fine-tune the [DistilGPT2](https://huggingface.co/distilgpt2) model on your WhatsApp history. Follow the instructions in [this colab](https://colab.research.google.com/github/nuwandavek/you/blob/master/Training_You.ipynb). Download the `model.zip` file at the end of this step, and unzip it to a location of your choice.
+First, we'll fine-tune the [DistilGPT2](https://huggingface.co/distilgpt2) model on your WhatsApp history. Follow the instructions in [this colab](https://colab.research.google.com/github/nuwandavek/you/blob/master/Training_You.ipynb). Remember, more the data, the better You work(s)! Download the `model.zip` file at the end of this step, and unzip it to a location of your choice.
 
 ### Install the You Browser extension
 > *Note : This extension was tested for Firefox and Chrome* 
