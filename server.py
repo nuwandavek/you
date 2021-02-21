@@ -3,9 +3,12 @@ import sys
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from transformers import pipeline
+from expertai.nlapi.cloud.client import ExpertAiClient
+
 
 app = Flask(__name__)
 CORS(app)
+expaiclient = ExpertAiClient()
 
 def set_up_gen_pipeline(model_path):
     global gen_pipeline
@@ -31,6 +34,22 @@ def prompt():
         "outputs": outputs 
     })
     return res
+
+@app.route("/getsentiment")
+def sentiment():
+    context = request.args.get('context', default = '', type = str)
+    print(f'context = {context}')
+    language = 'en'
+    document = expaiclient.specific_resource_analysis(
+        body={"document": {"text": context}}, 
+        params={'language': language, 'resource': 'sentiment'})
+    outputs = document.sentiment.overall
+    print(f'outputs = {outputs}')
+    res = jsonify({
+        "outputs": outputs 
+    })
+    return res
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
