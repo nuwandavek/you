@@ -1,10 +1,27 @@
 import sys
+import json
 
+from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from transformers import pipeline
 from expertai.nlapi.cloud.client import ExpertAiClient
 
+def monthToNum(shortMonth):
+    return {
+            'Jan' : 1,
+            'Feb' : 2,
+            'Mar' : 3,
+            'Apr' : 4,
+            'May' : 5,
+            'Jun' : 6,
+            'Jul' : 7,
+            'Aug' : 8,
+            'Sep' : 9, 
+            'Oct' : 10,
+            'Nov' : 11,
+            'Dec' : 12
+    }[shortMonth]
 
 app = Flask(__name__)
 CORS(app)
@@ -61,6 +78,71 @@ def sentiment():
     })
     return res
 
+@app.route("/calendarinvite")
+def calendar():
+    resp = []
+    context = request.args.get('context', default = '', type = str)
+    print(f'context = {context}')
+    language = 'en'
+    context = context.split('<SPLIT>')
+    for line in context:
+        if(len(line) > 0):
+            print(f'line = {line}')
+            document = expaiclient.specific_resource_analysis(
+                body={"document": {"text": line}}, 
+                params={'language': language, 'resource': 'entities'})
+            has_calendar = False
+            day = None
+            month = None
+            year = None
+            hour = None
+            start = len(line)
+            end = -1
+            print(type(document))
+            if(document.entities is not None):
+                for entity in document.entities:
+                    if entity.type_ is None:
+                        continue
+                    if(entity.type_ == "DAT"):
+                        has_calendar = True
+                        lemma = entity.lemma.split("-")
+                        month = lemma[0]
+                        day = lemma[1]
+                        if(len(lemma) > 2):
+                            year = lemma[2]
+                    if(entity.type_ == "HOU"):
+                        has_calendar = True
+                        hour = entity.lemma
+                    start = min(start, entity.positions[0].start)
+                    end = max(end, entity.positions[0].end)
+            
+            if(has_calendar):
+                today = datetime.today()
+                if(not day):
+                    day = today.day
+                if(not month):
+                    month = today.month
+                else :
+                    month = monthToNum(month)
+                if(not year):
+                    year = today.year
+                if(not hour):
+                    hour = "13:00"
+            
+            jsonobject = {
+                    "has_calendar" : has_calendar,
+                    "day" : day,
+                    "month" : month,
+                    "year" : year,
+                    "hour" : hour,
+                    "start" : start,
+                    "end" : end
+                    }
+            resp.append(jsonobject)
+    jsonstring = json.dumps(resp)
+
+    return jsonstring
+            
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
