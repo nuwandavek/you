@@ -40,7 +40,7 @@ function generateContext() {
 function getContextForSentiment() {
   var context = ''
   var messages = $(".focusable-list-item");
-  messages = messages.slice(-15);
+  messages = messages.slice(-5);
   messages.each(function () {
     var texts = $(this).find('.copyable-text');
     if (texts.length == 2) {
@@ -58,7 +58,7 @@ function getContextForCalendar() {
   var authors = [];
   var selfName = '';
   var messages = $(".focusable-list-item");
-  messages = messages.slice(-10);
+  messages = messages.slice(-5);
   messages.each(function () {
     var classes = $(this).attr('class');
     var type = '';
