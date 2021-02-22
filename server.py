@@ -43,10 +43,21 @@ def sentiment():
     document = expaiclient.specific_resource_analysis(
         body={"document": {"text": context}}, 
         params={'language': language, 'resource': 'sentiment'})
-    outputs = document.sentiment.overall
-    print(f'outputs = {outputs}')
+    sentiment_value = document.sentiment.overall
+    print(f'sentiment_value = {sentiment_value}')
+    if (sentiment_value <= -20):
+        sentiment_bucket = "highly negative"
+    elif (sentiment_value <= -10 and sentiment_value > -20):
+        sentiment_bucket = "negative"
+    elif (sentiment_value <= 10 and sentiment_value > -10):
+        sentiment_bucket = "neutral"
+    elif (sentiment_value <= 20 and sentiment_value > 10):
+        sentiment_bucket = "positive"
+    elif (sentiment_value > 20):
+        sentiment_bucket = "highly positive"
     res = jsonify({
-        "outputs": outputs 
+        "sentiment_value" : sentiment_value,
+        "sentiment_class": sentiment_bucket
     })
     return res
 
