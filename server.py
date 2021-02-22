@@ -5,7 +5,8 @@ from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from transformers import pipeline
-from expertai.nlapi.cloud.client import ExpertAiClient
+from expertai.nlapi.edge.client import ExpertAiClient
+# from expertai.nlapi.cloud.client import ExpertAiClient
 
 def monthToNum(shortMonth):
     return {
@@ -25,7 +26,7 @@ def monthToNum(shortMonth):
 
 app = Flask(__name__)
 CORS(app)
-expaiclient = ExpertAiClient()
+expert_client = ExpertAiClient()
 
 def set_up_gen_pipeline(model_path):
     global gen_pipeline
@@ -52,23 +53,24 @@ def prompt():
     })
     return res
 
-@app.route("/getsentiment")
+@app.route("/sentiment")
 def sentiment():
     context = request.args.get('context', default = '', type = str)
     print(f'context = {context}')
     language = 'en'
-    document = expaiclient.specific_resource_analysis(
-        body={"document": {"text": context}}, 
-        params={'language': language, 'resource': 'sentiment'})
+    # document = expaiclient.specific_resource_analysis(
+    #     body={"document": {"text": context}}, 
+    #     params={'language': language, 'resource': 'sentiment'})
+    document = expert_client.sentiment(context)
     sentiment_value = document.sentiment.overall
     print(f'sentiment_value = {sentiment_value}')
     if (sentiment_value <= -20):
         sentiment_bucket = "highly negative"
-    elif (sentiment_value <= -10 and sentiment_value > -20):
+    elif (sentiment_value <= -5 and sentiment_value > -20):
         sentiment_bucket = "negative"
-    elif (sentiment_value <= 10 and sentiment_value > -10):
+    elif (sentiment_value <= 5 and sentiment_value > -5):
         sentiment_bucket = "neutral"
-    elif (sentiment_value <= 20 and sentiment_value > 10):
+    elif (sentiment_value <= 20 and sentiment_value > 5):
         sentiment_bucket = "positive"
     elif (sentiment_value > 20):
         sentiment_bucket = "highly positive"
@@ -78,7 +80,7 @@ def sentiment():
     })
     return res
 
-@app.route("/calendarinvite")
+@app.route("/calendar")
 def calendar():
     resp = []
     context = request.args.get('context', default = '', type = str)
@@ -88,9 +90,10 @@ def calendar():
     for line in context:
         if(len(line) > 0):
             print(f'line = {line}')
-            document = expaiclient.specific_resource_analysis(
-                body={"document": {"text": line}}, 
-                params={'language': language, 'resource': 'entities'})
+            # document = expaiclient.specific_resource_analysis(
+            #     body={"document": {"text": line}}, 
+            #     params={'language': language, 'resource': 'entities'})
+            document = expert_client.named_entity_recognition(line)
             has_calendar = False
             day = None
             month = None

@@ -58,7 +58,7 @@ function getContextForCalendar() {
   var authors = [];
   var selfName = '';
   var messages = $(".focusable-list-item");
-  messages = messages.slice(-5);
+  messages = messages.slice(-10);
   messages.each(function () {
     var classes = $(this).attr('class');
     var type = '';
@@ -197,11 +197,17 @@ function getPrompts(context) {
 
 function displaySentiment(val, idx) {
   var sentimentColor = "#27ae60";
-  if (val < -5) {
+  if (val.sentiment_class === "highly negative") {
     sentimentColor = "#c0392b";
   }
-  else if (val < 5) {
+  else if (val.sentiment_class === "negative") {
+    sentimentColor = "#e74c3c";
+  }
+  else if (val.sentiment_class === 'neutral') {
     sentimentColor = "#f1c40f";
+  }
+  else if (val.sentiment_class === "positive") {
+    sentimentColor = "#2ecc71";
   }
 
   var imgParent = $('#main').find('header').find('._1l12d');
@@ -210,22 +216,24 @@ function displaySentiment(val, idx) {
   var sideParent = $($('._1MZWu')[idx]).find('._1l12d')
   $(sideParent).css("border", sentimentColor + " 3px solid");
 
+  var name = $('#main').find('header').find('._1hI5g._1XH7x._1VzZY').text();
+  $('#main').find('header').find('._1hI5g._1XH7x._1VzZY').text(name + " [Sentiment : " + val.sentiment_class + "]")
 
 }
 
 function getSentiment(context, idx) {
-  // $.ajax({
-  //   url: 'http://localhost:5000/sentiment',
-  //   crossDomain: true,
-  //   dataType: 'json',
-  //   data: { context: context },
-  //   success: (d) => {
-  //     // console.log(d);
-  //     displaySentiment(d.sentiment);
-  //   }
-  // });
-  var val = Math.floor(Math.random() * 10) - 2;
-  displaySentiment(val, idx);
+  $.ajax({
+    url: 'http://localhost:5000/sentiment',
+    crossDomain: true,
+    dataType: 'json',
+    data: { context: context },
+    success: (d) => {
+      // console.log(d);
+      displaySentiment(d, idx);
+    }
+  });
+  // var val = Math.floor(Math.random() * 10) - 2;
+  // displaySentiment(val, idx);
 }
 
 function displayCalendar(vals, DOMs, context, authors, selfName) {
@@ -242,15 +250,23 @@ function displayCalendar(vals, DOMs, context, authors, selfName) {
 
 
   console.log(selfName, '-|-', nonSelfNames)
+  console.log(vals, vals.length);
 
   for (var i = 0; i < vals.length; i++) {
     var temp = vals[i];
     console.log(context[i], temp)
     if (temp.has_calendar) {
       var message = context[i];
-      var link = "https://calendar.google.com/calendar/u/0/r/eventedit?text=Quick Chat with " + nonSelfNames + "&details=This is a quick Chat with you (" + selfName + ") and " + nonSelfNames + ". This invite was automatically detected and created by You! &dates=20210222T190000Z/20210222T193000"
+      var day = temp.day.padStart(2, '0');
+      var month = String(temp.month).padStart(2, '0');
+      var year = String(temp.year);
+      var hour = temp.hour.split(":")[0];
+
+      // var link = "https://calendar.google.com/calendar/u/0/r/eventedit?text=Quick Chat with " + nonSelfNames + "&details=This is a quick Chat with you (" + selfName + ") and " + nonSelfNames + ". This invite was automatically detected and created by You! &dates=20210222T190000Z/20210222T193000"
+      var link = "https://calendar.google.com/calendar/u/0/r/eventedit?text=Quick Chat with " + nonSelfNames + "&details=This is a quick Chat with you (" + selfName + ") and " + nonSelfNames + ". This invite was automatically detected and created by You! &dates=" + year + month + day + "T" + hour + "0000Z/" + year + month + day + "T" + hour + "3000"
+
       $(DOMs[i]).text('')
-      $(DOMs[i]).append('<a target="_blank" href="' + link + '" style="text-decoration: underline;text-decoration-style: dashed;">' + message + '</a>')
+      $(DOMs[i]).append('<span>' + message.slice(0, temp.start) + '<a target="_blank" href="' + link + '" style="text-decoration: underline;text-decoration-style: dashed;">' + message.slice(temp.start, temp.end) + '</a>' + message.slice(temp.end) + '</span>')
 
     }
   }
@@ -263,23 +279,23 @@ function getCalendar(c) {
   var authors = c[2];
   var selfName = c[3];
 
-  // $.ajax({
-  //   url: 'http://localhost:5000/calendar',
-  //   crossDomain: true,
-  //   dataType: 'json',
-  //   data: { context: context },
-  //   success: (d) => {
-  //     // console.log(d);
-  //     displaySentiment(d.sentiment);
-  //   }
-  // });
+  $.ajax({
+    url: 'http://localhost:5000/calendar',
+    crossDomain: true,
+    dataType: 'json',
+    data: { context: context },
+    success: (d) => {
+      // console.log(d);
+      displayCalendar(d, DOMs, context, authors, selfName);
+    }
+  });
 
-  var vals = [
-    { has_calendar: false },
-    { has_calendar: true },
-    { has_calendar: false },
-  ];
-  displayCalendar(vals, DOMs, context, authors, selfName);
+  // var vals = [
+  //   { has_calendar: false },
+  //   { has_calendar: true },
+  //   { has_calendar: false },
+  // ];
+  // displayCalendar(vals, DOMs, context, authors, selfName);
 }
 
 $(document).ready(function () {
