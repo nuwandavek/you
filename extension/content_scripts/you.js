@@ -183,6 +183,7 @@ function displayPrompts(prompts, context) {
 }
 
 function getPrompts(context) {
+  console.log('AUTOCOMPLETEEEE!')
   $.ajax({
     url: 'http://localhost:5000/autocomplete',
     crossDomain: true,

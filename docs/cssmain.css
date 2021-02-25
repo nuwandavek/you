@@ -1,0 +1,98 @@
+body{
+    background-color: #ecf0f1;
+    font-family: 'Literata';
+}
+
+.jumbo{
+    font-size: 5em;
+    font-family: 'Lato';
+    text-align: center;
+
+}
+
+.jumbo3{
+    font-size: 2em;
+    font-family: 'Lato';
+    margin-top: 50px;
+    text-align: center;
+    letter-spacing: 20px;
+
+}
+
+.jumbo2{
+    font-weight: 900;
+    font-size: 1.5em;
+}
+.content{
+    text-align: justify;
+}
+
+#typingButton,#uploadButton{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#inputLabel, #inputLabel-2{
+    font-weight: 900;
+}
+
+#result-div{
+    display: none;
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    color: #333;
+}
+
+hr{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+#credit{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.jumbo-blink:after {
+    content: '';
+    width: 40px;
+    height: 5px;
+    background: black;
+    opacity: 0;
+    display: inline-block;
+    animation: blink 0.5s linear infinite alternate;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+.figure-caption{
+      text-align: center;
+  }
+
+.sigs{
+      border : 3px solid #c0392b;
+      border-radius : 5px;
+  }
+
+.typer{
+    padding: 0px;
+    border-radius: 10px;
+  }
+
+#main2{
+      color: #ddd;
+      background-color: #223;
+  }
+
+hr{
+    color: #fff;
+    background-color: #fff;
+}
